@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Solitaire</title>
+
+    <link rel="stylesheet" type="text/css" media="all" href="playingCards.ui.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="solitaire.css" />
+    <!-- <style type="text/css">
+        body {
+            background-image: url("img/green_back.jpeg");
+        }
+    </style> -->
+
+</head>
+
+<body>
+
+
+    <div id="container">
+        <div id="deckSpace">
+            <div id="deck" class="cardSpace"></div>
+            <div id="openedCard" class="cardSpace"></div>
+        </div>
+
+        <div id="suidCardSpace">
+            <!-- 組札のスペース -->
+            <div id="spade" class="cardSpace"></div>
+            <div id="heart" class="cardSpace"></div>
+            <div id="club" class="cardSpace"></div>
+            <div id="diamond" class="cardSpace"></div>
+
+        </div>
+
+        <div id="fieldSpace">
+            <div class="cardSpace"></div>
+            <div class="cardSpace"></div>
+            <div class="cardSpace"></div>
+            <div class="cardSpace"></div>
+            <div class="cardSpace"></div>
+            <div class="cardSpace"></div>
+            <div class="cardSpace"></div>
+
+        </div>
+    </div>
+
+    <h2>Card Deck</h2>
+    <div id="cardDeck"></div>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="playingCards.js"></script>
+    <script type="text/javascript" src="playingCards.ui.js"></script>
+    <script type="text/javascript" src="solitaire.js"></script>
+    <!-- <script type="text/javascript">
+        $(document).ready(function () {
+            var cardDeck = $("#cardDeck").playingCards();
+            cardDeck.spread(); // show it
+
+            $(".playingCard").draggable();
+        });
+    </script> -->
+</body>
+
+</html>

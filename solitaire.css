@@ -1,0 +1,32 @@
+body {
+    background-image: url("img/green_back.jpeg");
+}
+
+#container{
+    width: 40rem;
+    height: 21rem;
+}
+
+.cardSpace{
+    width: 5rem;
+    height: 7rem;
+    border: 2px solid #b20000;
+    display: inline-block;
+}
+
+#deckSpace{
+    display: inline-block;
+}
+
+#suidCardSpace{
+
+    float: right;
+}
+
+.playingCardBack {
+    background-image: url("img/ura.gif");
+}
+
+.ura *{
+    display: none;
+}
