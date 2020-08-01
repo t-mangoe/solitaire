@@ -2,6 +2,8 @@ const merginValue = 20;
 const fieldCardSpaceNum = 7;
 var cardDeck = new playingCards();
 var fieldCardArray = [];
+// ドラッグするカード
+var dragCard = null;
 
 // 最初の場のカードを作成
 for (let i = 0; i < fieldCardSpaceNum; i++) {
@@ -66,7 +68,14 @@ $(document).ready(function () {
             console.log(event);
             console.log(ui);
             console.log(this);
+            // 移動させるカードが一番上になるようにz-indexを設定
             $(this).css("z-index", 100);
+
+            let spaceIndex = $(this).parent().index();
+            let cardIndex = $(this).index();
+
+            dragCard = fieldCardArray[spaceIndex][cardIndex];
+
         }
     });
     // ドロップも可能にする
@@ -86,6 +95,9 @@ $(document).ready(function () {
             let index = draggable.index();
             // ドロップされた場所が何番目の場所かを表すインデックス
             let dropIndex = $(this).parent().index();
+
+            // ドロップされたカード
+            let droppedCard = fieldCardArray[dropIndex].slice(-1)[0];
 
             draggable.css('left', '');
             draggable.css('top', '');
