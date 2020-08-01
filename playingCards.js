@@ -17,7 +17,7 @@
 if (Array.indexOf === undefined) {
     // doens't exist in oldIE
     /* Finds the index of the first occurence of item in the array, or -1 if not found */
-    Array.prototype.indexOf = function(v) {
+    Array.prototype.indexOf = function (v) {
         for (var i = 0; i < this.length; ++i) {
             if (this[i] === v) {
                 return i;
@@ -26,7 +26,7 @@ if (Array.indexOf === undefined) {
         return - 1;
     };
 }
- (function(window,document,undefined){
+(function (window, document, undefined) {
 
     /**
      * The playing card library core object
@@ -35,9 +35,9 @@ if (Array.indexOf === undefined) {
      *
      * @return obj an instance of the constructed library object (deck of cards)
      */
-    var playingCards = window.playingCards = function(conf) {
+    var playingCards = window.playingCards = function (conf) {
         var c = objExtend(playingCards.defaults, conf);
-        if (! (this instanceof playingCards)) {
+        if (!(this instanceof playingCards)) {
             // in jquery mode
             c.el = $(this); // capture the context (this will be the cardTable/Deck element)
             return new playingCards(c);
@@ -52,10 +52,10 @@ if (Array.indexOf === undefined) {
     /**
      * initializer - builds the deck
      */
-    playingCards.prototype.init = function() {
+    playingCards.prototype.init = function () {
         this.cards = [];
         var o = this.conf,
-            l,i,s,r,j;
+            l, i, s, r, j;
         // populate draw pile
         for (i = 0; i < o.decks; i++) {
             // standard
@@ -81,20 +81,20 @@ if (Array.indexOf === undefined) {
      * draw a card
      * @return mixed (object|null) A card object (if a card is available)
      */
-    playingCards.prototype.draw = function() {
+    playingCards.prototype.draw = function () {
         return this.cards.length > 0 ? this.cards.pop() : null;
     };
     /**
      * add a card to the top of the deck
      */
-    playingCards.prototype.addCard = function(card) {
+    playingCards.prototype.addCard = function (card) {
         this.cards.push(card);
     };
     /**
      * get the number of cards remaining in the deck
      * (easy enough just to call cardObject.cards.length but hey)
      */
-    playingCards.prototype.count = function() {
+    playingCards.prototype.count = function () {
         return this.cards.length;
     };
     /**
@@ -102,12 +102,12 @@ if (Array.indexOf === undefined) {
      *
      * @param int n The number of times to shuffle (defaults to 5)
      */
-    playingCards.prototype.shuffle = function(n) {
+    playingCards.prototype.shuffle = function (n) {
         if (!n) {
             n = 5;
         }
         var l = this.cards.length,
-            r,tmp,i,j;
+            r, tmp, i, j;
 
         for (i = 0; i < n; i++) {
             for (j = 0; j < l; j++) {
@@ -119,11 +119,11 @@ if (Array.indexOf === undefined) {
         }
     };
 
-    playingCards.prototype.orderByRank = function() {
+    playingCards.prototype.orderByRank = function () {
         this.cards.sort(compareRank);
     }
 
-    playingCards.prototype.orderBySuit = function() {
+    playingCards.prototype.orderBySuit = function () {
         this.init();
     }
 
@@ -131,7 +131,7 @@ if (Array.indexOf === undefined) {
      * requires jquery (currently)
      * TODO: put this in a UI extension pack along with all the other demo methods
      */
-    playingCards.prototype.spread = function(dest) {
+    playingCards.prototype.spread = function (dest) {
         if (!this.conf.el && !dest) {
             return false;
         }
@@ -190,8 +190,8 @@ if (Array.indexOf === undefined) {
      *
      * @return object The card object
      */
-    playingCards.card = function(rank, rankString, suit, suitString, conf) {
-        if (! (this instanceof playingCards.card)) {
+    playingCards.card = function (rank, rankString, suit, suitString, conf) {
+        if (!(this instanceof playingCards.card)) {
             return new playingCards.card(rank, rankString, suit, suitString, conf);
         }
 
@@ -220,9 +220,20 @@ if (Array.indexOf === undefined) {
     /**
      * get the text representation of the card
      */
-    playingCards.card.prototype.toString = function() {
-        return this.suitString !== "" ? this.rankString + playingCards.defaults.ofString + this.suitString: this.rankString;
+    playingCards.card.prototype.toString = function () {
+        return this.suitString !== "" ? this.rankString + playingCards.defaults.ofString + this.suitString : this.rankString;
     };
+
+    /**
+     * get numeric value of rank.
+     */
+    playingCards.card.prototype.getRankValue = function () {
+        if (this.rank == "J") return 11;
+        if (this.rank == "Q") return 12;
+        if (this.rank == "K") return 13;
+        if (this.rank == "A") return 1;
+        return Number(this.rank);
+    }
 
     /**
      * Simple object extend to override default settings
@@ -243,18 +254,18 @@ if (Array.indexOf === undefined) {
     function compareRank(a, b) {
         var intRegex = /^\d+$/;
 
-        if (a.rank == b.rank)                       return 0;
-        if (a.rank == "N")                          return 1;
-        if (b.rank == "N")                          return -1;
-        if (a.rank == "A")                          return 1;
-        if (b.rank == "A")                          return -1;
-        if (!isNaN(a.rank - b.rank))                return a.rank - b.rank;
-        if (a.rank == "K" && b.rank == "J")         return 1;
-        if (a.rank == "J" && b.rank == "K")         return -1;
-        if (a.rank == "K" && b.rank == "Q")         return 1;
-        if (a.rank == "Q" && b.rank == "K")         return -1;
-        if (a.rank == "Q" && b.rank == "J")         return 1;
-        if (a.rank == "J" && b.rank == "Q")         return -1;
+        if (a.rank == b.rank) return 0;
+        if (a.rank == "N") return 1;
+        if (b.rank == "N") return -1;
+        if (a.rank == "A") return 1;
+        if (b.rank == "A") return -1;
+        if (!isNaN(a.rank - b.rank)) return a.rank - b.rank;
+        if (a.rank == "K" && b.rank == "J") return 1;
+        if (a.rank == "J" && b.rank == "K") return -1;
+        if (a.rank == "K" && b.rank == "Q") return 1;
+        if (a.rank == "Q" && b.rank == "K") return -1;
+        if (a.rank == "Q" && b.rank == "J") return 1;
+        if (a.rank == "J" && b.rank == "Q") return -1;
         if (a.rank == "K" && intRegex.test(b.rank)) return 1;
         if (a.rank == "Q" && intRegex.test(b.rank)) return 1;
         if (a.rank == "J" && intRegex.test(b.rank)) return 1;
@@ -263,4 +274,4 @@ if (Array.indexOf === undefined) {
         if (intRegex.test(a.rank) && b.rank == "J") return -1;
     }
 
-})(this,this.document);
+})(this, this.document);
