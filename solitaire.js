@@ -15,6 +15,12 @@ for (let i = 0; i < fieldCardSpaceNum; i++) {
     fieldCardArray.push(tmpArray);
 }
 
+// カードをドラッグで移動可能かを判定する関数
+function checkDragEnable(dragCard, dropCard) {
+    let dragCardRank = dragCard.getRankValue();
+    let dropCardRank = dropCard.getRankValue();
+}
+
 $(document).ready(function () {
 
     cardDeck.shuffle();
@@ -98,6 +104,8 @@ $(document).ready(function () {
 
             // ドロップされたカード
             let droppedCard = fieldCardArray[dropIndex].slice(-1)[0];
+
+            let flag = checkDragEnable(dragCard, droppedCard);
 
             draggable.css('left', '');
             draggable.css('top', '');
