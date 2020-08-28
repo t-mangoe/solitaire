@@ -4,6 +4,9 @@ var cardDeck = new playingCards();
 var fieldCardArray = [];
 // ドラッグするカード
 var dragCard = null;
+// 移動させるカードのインデックス
+var fromSpaceIndex = null;
+var fromCardIndex = null;
 
 // 最初の場のカードを作成
 for (let i = 0; i < fieldCardSpaceNum; i++) {
@@ -81,7 +84,8 @@ $(document).ready(function () {
             let cardIndex = $(this).index();
 
             dragCard = fieldCardArray[spaceIndex][cardIndex];
-
+            fromSpaceIndex = spaceIndex;
+            fromCardIndex = cardIndex;
         }
     });
     // ドロップも可能にする
@@ -98,18 +102,24 @@ $(document).ready(function () {
             console.log(draggable);
             $(this).parent().append(draggable);
 
-            let index = draggable.index();
+            let cardIndex = draggable.index();
             // ドロップされた場所が何番目の場所かを表すインデックス
-            let dropIndex = $(this).parent().index();
+            let spaceIndex = $(this).parent().index();
 
             // ドロップされたカード
-            let droppedCard = fieldCardArray[dropIndex].slice(-1)[0];
+            let droppedCard = fieldCardArray[spaceIndex].slice(-1)[0];
 
-            let flag = checkDragEnable(dragCard, droppedCard);
+            // let flag = checkDragEnable(dragCard, droppedCard);
+
+            // 移動前のカードを削除
+            let movedCard = fieldCardArray[fromSpaceIndex].slice(-1)[0];
+            fieldCardArray[fromSpaceIndex].pop();
+            // 移動後のカードを追加
+            fieldCardArray[spaceIndex].push(movedCard);
 
             draggable.css('left', '');
             draggable.css('top', '');
-            draggable.css('margin-top', index * merginValue);
+            draggable.css('margin-top', cardIndex * merginValue);
             draggable.css('z-index', zIndex + 1);
 
 
