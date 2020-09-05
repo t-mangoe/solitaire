@@ -86,7 +86,9 @@ $(document).ready(function () {
             dragCard = fieldCardArray[spaceIndex][cardIndex];
             fromSpaceIndex = spaceIndex;
             fromCardIndex = cardIndex;
-        }
+        },
+        // ドロップされなかった場合、元に戻す
+        revert: 'invalid'
     });
     // ドロップも可能にする
     $(".playingCard:not(.ura)").droppable({
